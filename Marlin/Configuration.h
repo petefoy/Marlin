@@ -928,7 +928,7 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 400, 500 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 400, 411 }
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -1332,7 +1332,7 @@
 // @section extruder
 
 // For direct drive extruder v9 set to true, for geared extruder set to false.
-#define INVERT_E0_DIR true //pf
+#define INVERT_E0_DIR false
 #define INVERT_E1_DIR false
 #define INVERT_E2_DIR false
 #define INVERT_E3_DIR false
@@ -1371,7 +1371,7 @@
 
 // The size of the printable area
 #define X_BED_SIZE 235 //pf
-#define Y_BED_SIZE 235 //pf
+#define Y_BED_SIZE 225 //pf
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS -3
