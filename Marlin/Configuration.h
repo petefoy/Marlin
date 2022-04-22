@@ -602,9 +602,9 @@
     #define DEFAULT_Ki_LIST {   1.08,   1.08 }
     #define DEFAULT_Kd_LIST { 114.00, 114.00 }
   #else
-    #define DEFAULT_Kp  11.73
-    #define DEFAULT_Ki   0.9
-    #define DEFAULT_Kd  38.24
+    #define DEFAULT_Kp  11.07
+    #define DEFAULT_Ki   0.75
+    #define DEFAULT_Kd  40.74
   #endif
 #endif // PIDTEMP
 
@@ -928,7 +928,7 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 400, 411 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 400, 848 }
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -937,7 +937,7 @@
  */
 #define DEFAULT_MAX_FEEDRATE          { 300, 300, 5, 25 }
 
-//#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
+#define LIMITED_MAX_FR_EDITING  //pf      // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
   #define MAX_FEEDRATE_EDIT_VALUES    { 600, 600, 10, 50 } // ...or, set your own edit limits
 #endif
@@ -948,9 +948,9 @@
  * Override with M201
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 2000, 2000, 100, 10000 }  //pf { 3000, 3000, 100, 10000 }
+#define DEFAULT_MAX_ACCELERATION      { 500, 400, 100, 1000 }  //pf { 3000, 3000, 100, 10000 }
 
-//#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
+#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
   #define MAX_ACCEL_EDIT_VALUES       { 6000, 6000, 200, 20000 } // ...or, set your own edit limits
 #endif
@@ -963,9 +963,9 @@
  *   M204 R    Retract Acceleration
  *   M204 T    Travel Acceleration
  */
-#define DEFAULT_ACCELERATION          1500  //pf 3000  // X, Y, Z and E acceleration for printing moves
-#define DEFAULT_RETRACT_ACCELERATION  1500  //pf 3000  // E acceleration for retracts
-#define DEFAULT_TRAVEL_ACCELERATION   1500  //pf 3000  // X, Y, Z acceleration for travel (non printing) moves
+#define DEFAULT_ACCELERATION          1000  //pf 3000  // X, Y, Z and E acceleration for printing moves
+#define DEFAULT_RETRACT_ACCELERATION  500  //pf 3000  // E acceleration for retracts
+#define DEFAULT_TRAVEL_ACCELERATION   500  //pf 3000  // X, Y, Z acceleration for travel (non printing) moves
 
 /**
  * Default Jerk limits (mm/s)
@@ -1180,11 +1180,11 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { -38.8, -0.5, -1.65 }
+#define NOZZLE_TO_PROBE_OFFSET { -37.5, -1, -3.29 }
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
-#define PROBING_MARGIN 20 //pf from 10
+#define PROBING_MARGIN 30 //pf from 10
 
 // X and Y axis travel speed (mm/min) between probes
 #define XY_PROBE_FEEDRATE (133*60)
@@ -1371,14 +1371,14 @@
 
 // The size of the printable area
 #define X_BED_SIZE 235 //pf
-#define Y_BED_SIZE 225 //pf
+#define Y_BED_SIZE 235 //pf
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
-#define X_MIN_POS -3
+#define X_MIN_POS -5
 #define Y_MIN_POS -3
 #define Z_MIN_POS 0
-#define X_MAX_POS (X_BED_SIZE + 35) //pf
-#define Y_MAX_POS Y_BED_SIZE
+#define X_MAX_POS X_BED_SIZE - X_MIN_POS//(X_BED_SIZE + 35) //pf
+#define Y_MAX_POS Y_BED_SIZE - Y_MIN_POS
 #define Z_MAX_POS 220 //pf
 //#define I_MIN_POS 0
 //#define I_MAX_POS 50
@@ -1537,8 +1537,8 @@
  */
 //#define AUTO_BED_LEVELING_3POINT
 //#define AUTO_BED_LEVELING_LINEAR  //pf
-#define AUTO_BED_LEVELING_BILINEAR //pf
-//#define AUTO_BED_LEVELING_UBL
+//#define AUTO_BED_LEVELING_BILINEAR //pf
+#define AUTO_BED_LEVELING_UBL
 //#define MESH_BED_LEVELING
 
 /**
@@ -1588,7 +1588,7 @@
   /**
    * Enable the G26 Mesh Validation Pattern tool.
    */
-  //#define G26_MESH_VALIDATION
+  #define G26_MESH_VALIDATION //pf
   #if ENABLED(G26_MESH_VALIDATION)
     #define MESH_TEST_NOZZLE_SIZE    0.4  // (mm) Diameter of primary nozzle.
     #define MESH_TEST_LAYER_HEIGHT   0.2  // (mm) Default layer height for G26.
@@ -1634,10 +1634,10 @@
   //========================= Unified Bed Leveling ============================
   //===========================================================================
 
-  //#define MESH_EDIT_GFX_OVERLAY   // Display a graphics overlay while editing the mesh
+  #define MESH_EDIT_GFX_OVERLAY  //pf // Display a graphics overlay while editing the mesh
 
-  #define MESH_INSET 1              // Set Mesh bounds as an inset region of the bed
-  #define GRID_MAX_POINTS_X 10      // Don't use more than 15 points per axis, implementation limited.
+  #define MESH_INSET 25 //pf              // Set Mesh bounds as an inset region of the bed
+  #define GRID_MAX_POINTS_X 7  //pf 10    // Don't use more than 15 points per axis, implementation limited.
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   //#define UBL_HILBERT_CURVE       // Use Hilbert distribution for less travel when probing multiple points
@@ -1648,7 +1648,7 @@
   //#define UBL_Z_RAISE_WHEN_OFF_MESH 2.5 // When the nozzle is off the mesh, this value is used
                                           // as the Z-Height correction value.
 
-  //#define UBL_MESH_WIZARD         // Run several commands in a row to get a complete mesh
+  #define UBL_MESH_WIZARD     //pf    // Run several commands in a row to get a complete mesh
 
 #elif ENABLED(MESH_BED_LEVELING)
 
@@ -1656,7 +1656,7 @@
   //=================================== Mesh ==================================
   //===========================================================================
 
-  #define MESH_INSET 10          // Set Mesh bounds as an inset region of the bed
+  #define MESH_INSET 35          // Set Mesh bounds as an inset region of the bed
   #define GRID_MAX_POINTS_X 3    // Don't use more than 7 points per axis, implementation limited.
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
@@ -2184,8 +2184,8 @@
 // Note: Test audio output with the G-Code:
 //  M300 S<frequency Hz> P<duration ms>
 //
-//#define LCD_FEEDBACK_FREQUENCY_DURATION_MS 2
-//#define LCD_FEEDBACK_FREQUENCY_HZ 5000
+#define LCD_FEEDBACK_FREQUENCY_DURATION_MS 0 //pf 2
+#define LCD_FEEDBACK_FREQUENCY_HZ 0 // pf 5000
 
 //=============================================================================
 //======================== LCD / Controller Selection =========================
