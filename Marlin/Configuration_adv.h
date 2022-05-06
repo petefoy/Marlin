@@ -502,7 +502,7 @@
   //#define CONTROLLER_FAN_USE_Z_ONLY       // With this option only the Z axis is considered
   //#define CONTROLLER_FAN_IGNORE_Z         // Ignore Z stepper. Useful when stepper timeout is disabled.
   #define CONTROLLERFAN_SPEED_MIN         0 // (0-255) Minimum speed. (If set below this value the fan is turned off.)
-  #define CONTROLLERFAN_SPEED_ACTIVE    150 //pf was 255 // (0-255) Active speed, used when any motor is enabled
+  #define CONTROLLERFAN_SPEED_ACTIVE    100 //pf was 255 // (0-255) Active speed, used when any motor is enabled
   #define CONTROLLERFAN_SPEED_IDLE        0 // (0-255) Idle speed, used when motors are disabled
   #define CONTROLLERFAN_IDLE_TIME        60 // (seconds) Extra time to keep the fan running after disabling motors
 
@@ -1961,7 +1961,7 @@
   #define MESH_MIN_X 5  //pf MESH_INSET
   #define MESH_MIN_Y 5  //pf MESH_INSET
   #define MESH_MAX_X 200 //(X_BED_SIZE - (MESH_INSET)) //pf
-  #define MESH_MAX_Y (Y_BED_SIZE - (MESH_INSET)) //pf
+  #define MESH_MAX_Y (Y_BED_SIZE - 5) //pf
 #endif
 
 #if BOTH(AUTO_BED_LEVELING_UBL, EEPROM_SETTINGS)
